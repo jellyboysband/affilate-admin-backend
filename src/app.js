@@ -1,12 +1,22 @@
 const Koa = require('koa');
-const KoaBody = require('koa-body');
+const bodyParser = require('koa-body');
 const routes = require('./router');
 const rabbit = require('amqplib');
 const config = require('./config');
 
 const app = new Koa();
 
-app.use(KoaBody);
+app.use(
+  bodyParser({
+    formLimit: '10mb',
+    jsonLimit: '10mb',
+    multipart: true,
+    formidable: {
+      // uploadDir: path.join(process.env.FRONT_PATH, process.env.UPLOAD_PATH),
+      keepExtensions: true
+    }
+  })
+);
 
 app.use(routes);
 

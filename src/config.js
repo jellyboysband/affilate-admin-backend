@@ -6,6 +6,6 @@ const config = {
   adminPassword: 'awesome777',
   getQ: 'documents_ali',
   sendQ: 'documents_ali'
-}
+};
 
 module.exports = config;
