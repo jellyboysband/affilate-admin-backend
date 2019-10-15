@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "@koa/cors": "^3.0.0",
     "amqplib": "^0.5.5",
     "jsonwebtoken": "^8.5.1",
     "koa": "^2.8.1",
@@ -19,6 +20,7 @@
     "prettier": "^1.18.2"
   },
   "scripts": {
-    "lint": "./node_modules/eslint/bin/eslint.js ."
+    "lint": "eslint src",
+    "lint:app": "eslint src"
   }
 }
