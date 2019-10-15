@@ -5,7 +5,7 @@ const config = {
   jwtExpires: '365d',
   adminPassword: 'awesome777',
   getQ: 'documents_ali',
-  sendQ: 'documents_ali'
-}
+  sendQ: 'filtered_products',
+};
 
 module.exports = config;

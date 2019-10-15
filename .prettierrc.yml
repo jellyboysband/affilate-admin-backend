@@ -3,6 +3,7 @@ tabWidth: 2
 useTabs: false
 semi: true
 singleQuote: true
-trailingComma: true
+trailingComma: "all"
 bracketSpacing: true
-arrowParents: "avoid"
+arrowParens: "avoid"
+quoteProps: "as-needed"
