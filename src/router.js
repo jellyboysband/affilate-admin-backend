@@ -20,7 +20,7 @@ router.post('/admin/login', async (ctx) => {
 
 // router.get('/product', authMiddleware, async ctx => {
 router.get('/admin/product', authMiddleware, async (ctx) => {
-  const product = (await ctx.rabbit.get(config.getQ, { noAck: true })).content
+  const product = (await ctx.rabbit.get(config.getQ, { noAck: false })).content
   if (product) {
     ctx.body = product.toString();
   } else {
@@ -29,14 +29,9 @@ router.get('/admin/product', authMiddleware, async (ctx) => {
 
 });
 
-// router.get('/product', authMiddleware, async ctx => {
-router.get('/admin/product', authMiddleware, async ctx => {
-  ctx.body = (await ctx.rabbit.get(config.getQ, { noAck: true })).content.toString();
-});
-
 router.post('/admin/product', authMiddleware, async ctx => {
   const result = ctx.request.body;
-  await ctx.rabbit.sendToQueue(config.sendQ, Buffer.from(JSON.stringify(result)))
+  await ctx.rabbit.sendToQueue(config.sendQ, Buffer.from(JSON.stringify(result)), { appId: config.appId, contentType: 'application/json' })
   ctx.body = {}
 });
 module.exports = router.routes();

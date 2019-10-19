@@ -7,6 +7,7 @@ const config = {
   adminPassword: 'awesome777',
   getQ: 'documents_ali',
   sendQ: 'filtered_products',
+  appId: 'affilateQ'
 };
 
 module.exports = config;
