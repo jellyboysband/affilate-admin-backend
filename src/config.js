@@ -1,13 +1,14 @@
+require('dotenv').config()
 const config = {
-  port: 3000,
-  rabbitUrl: 'amqp://localhost',
-  jwtSalt:
+  port: +process.env.PORT || 3000,
+  rabbitUrl: process.env.RABBIT_URL || 'amqp://localhost',
+  jwtSalt: process.env.JWT_SALT ||
     'mySuperSecretAwesomeSaltuhg87g8yvg67fyuF&^FCtd54dcytuf64dcytC^%DyctvgcD^Y%DCYTVcy65d5ty',
   jwtExpires: '365d',
-  adminPassword: 'awesome777',
-  getQ: 'documents_ali',
-  sendQ: 'filtered_products',
-  appId: 'affilateQ'
+  adminPassword: process.env.ADMIN_PASS || 'awesome777',
+  getQ: process.env.GET_Q || 'documents_ali',
+  sendQ: process.env.SEND_Q || 'filtered_products',
+  appId: process.env.APP_ID || 'affilateQ'
 };
 
 module.exports = config;
