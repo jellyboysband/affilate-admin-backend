@@ -20,7 +20,7 @@ router.post('/admin/login', async (ctx) => {
 
 // router.get('/product', authMiddleware, async ctx => {
 router.get('/admin/product', authMiddleware, async (ctx) => {
-  const product = (await ctx.rabbit.get(config.getQ, { noAck: false })).content
+  const product = (await ctx.rabbit.get(config.getQ, { noAck: true })).content
   if (product) {
     ctx.body = product.toString();
   } else {
