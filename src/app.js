@@ -13,7 +13,7 @@ app.use(
     allowMethods: ['GET', 'HEAD', 'PUT', 'POST', 'DELETE', 'PATCH'],
     allowHeaders: ['Content-Type', 'Authorization', 'token', 'id'],
     exposeHeaders: ['Content-Length', 'Date', 'X-Request-Id'],
-  })
+  }),
 );
 app.use(
   bodyParser({
@@ -24,7 +24,7 @@ app.use(
       // uploadDir: path.join(process.env.FRONT_PATH, process.env.UPLOAD_PATH),
       keepExtensions: true,
     },
-  })
+  }),
 );
 
 app.use(routes);
@@ -34,15 +34,13 @@ rabbit
     username: 'rabbitmq',
     password: 'rabbitmq',
   })
-  .then(async (conn) => {
-    conn.createChannel().then((ch) => {
-      app.context.rabbit = ch;
+  .then(async conn => {
+    const ch = await conn.createChannel();
+    app.context.rabbit = ch;
 
-      ch.assertQueue(config.sendQ, { durable: false });
-      ch.assertQueue(config.getQ, { durable: false, ack: true }).then(() => {
-        app.listen(config.port, () => {
-          console.log(config.port);
-        });
-      });
+    app.context.sendQueue = await ch.assertQueue(config.sendQ, { durable: false });
+    app.context.getQueue = await ch.assertQueue(config.getQ, { durable: false, ack: true });
+    app.listen(config.port, () => {
+      console.log(config.port);
     });
   });
