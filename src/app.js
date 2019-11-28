@@ -44,3 +44,6 @@ rabbit
       console.log(config.port);
     });
   });
+
+// const querystring = require("querystring");
+// console.log("TCL: encodeURI('https://ru.aliexpress.com/item/33035922085.html')", 'https://buyeasy.by/redirect/cpa/o/pzmvmgjw6a7ylbnb0uf20oc2trqy6pza/?' + querystring.stringify({ to: 'https://ru.aliexpress.com/item/33035922085.html', sub: 'tg' }))

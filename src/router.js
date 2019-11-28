@@ -26,14 +26,12 @@ router.get('/admin/product', authMiddleware, async ctx => {
   }
 });
 
-// router.get('/product', authMiddleware, async ctx => {
-router.get('/admin/product', authMiddleware, async ctx => {
-  ctx.body = (await ctx.rabbit.get(config.getQ, { noAck: true })).content.toString();
-});
-
 router.post('/admin/product', authMiddleware, async ctx => {
   const result = ctx.request.body;
-  await ctx.rabbit.sendToQueue(config.sendQ, Buffer.from(JSON.stringify(result)));
+  await ctx.rabbit.sendToQueue(config.sendQ, Buffer.from(JSON.stringify(result)), {
+    appId: config.appId,
+    contentType: 'application/json',
+  });
   ctx.body = {};
 });
 

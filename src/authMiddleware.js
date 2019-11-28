@@ -3,14 +3,17 @@ const config = require('./config');
 
 const checkToken = async (ctx, next) => {
   const { token } = ctx.headers;
+  let data = null;
   try {
-    if (jwt.verify(token, config.jwtSalt)) {
-      await next();
-    } else {
-      ctx.throw(401, 'unauthorized');
-    }
+    data = jwt.verify(token, config.jwtSalt, { ignoreExpiration: true })
   } catch (err) {
+    ctx.throw(401, 'unauthorized');
+  }
 
+
+  if (data) {
+    await next();
+  } else {
     ctx.throw(401, 'unauthorized');
   }
 };
