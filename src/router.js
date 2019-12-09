@@ -38,6 +38,11 @@ router.post('/admin/product', authMiddleware, async ctx => {
 router.get('/admin/dashboard', authMiddleware, async ctx => {
   ctx.sendQueue = await ctx.rabbit.checkQueue(ctx.sendQueue.queue);
   ctx.getQueue = await ctx.rabbit.checkQueue(ctx.getQueue.queue);
-  ctx.body = { sendQ: ctx.sendQueue.messageCount, getQ: ctx.getQueue.messageCount };
+  ctx.postQueue = await ctx.rabbit.checkQueue(ctx.postQueue.queue);
+  ctx.body = {
+    sendQ: ctx.sendQueue.messageCount,
+    getQ: ctx.getQueue.messageCount,
+    postQ: ctx.postQueue.messageCount,
+  };
 });
 module.exports = router.routes();

@@ -40,6 +40,7 @@ rabbit
 
     app.context.sendQueue = await ch.assertQueue(config.sendQ, { durable: false });
     app.context.getQueue = await ch.assertQueue(config.getQ, { durable: false, ack: true });
+    app.context.postQueue = await ch.assertQueue(config.postQ, { durable: false });
     app.listen(config.port, () => {
       console.log(config.port);
     });
